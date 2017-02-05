@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ResponseRedirect</title>
+</head>
+<body>
+<h1>HTTP Response Splitting</h1><br>
+HTTP Response Splitting attacks take place where the server script
+embeds user data in HTTP response headers. This typically happens when
+the script embeds user data in the redirection URL of a redirection
+response (HTTP status code 3xx), or when the script embeds user data in
+a cookie value or name when the response sets a cookie. In the first
+case, the redirection URL is part of the Location HTTP response header,
+and in the second cookie setting case, the cookie name/value is part of
+the Set- Cookie HTTP response header. For example, consider the
+following JSP page (let us assume it is located in /redir_lang.jsp):
+<br>
+<br>
+&lt;% response.sendRedirect("/by_lang.jsp?lang="+
+request.getParameter("lang")); %&gt;
+<br>
+<br>
+When invoking /redir_lang.jsp with a parameter lang=English, it will
+redirect to /by_lang.jsp?lang=English
+<br>
+<br>
+Normal redirection
+<a href="">http://localhost:7001/secureCodingTrainingWeb/redir_lang.jsp?lang=English</a><br><br>ResponseSplit
+ <a href="">http://localhost:7001/secureCodingTrainingWeb/redir_lang.jsp?lang=foobar%0d%0aContent-
+Length:%200%0d%0a%0d%0aHTTP/1.1%20200%20OK%0d%0aContent-
+Type:%20text/html%0d%0aContent-
+Length:%2019%0d%0a%0d%0a&lt;html&gt;You have been hacked&lt;/html&gt;</a></body>
+</html>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!DOCTYPE customer
+[
+<!ENTITY name SYSTEM "C:\Users\aditya\workspace\secureCodingTrainingWeb\src\xmlattacks">
+]
+>
+<customer>
+  <name>&name;</name>
+</customer>
